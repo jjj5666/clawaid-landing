@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClawAid — Fix OpenClaw in One Command | OpenClaw 自动修复工具</title>
+<meta name="description" content="OpenClaw broken? Gateway crash? Config corrupted? Run npx clawaid — auto-diagnose and fix OpenClaw issues in one command. 100% free. OpenClaw 挂了？一行命令自动修好，完全免费。">
+<meta name="keywords" content="openclaw fix, openclaw broken, openclaw crash, openclaw gateway not working, openclaw config error, openclaw repair, openclaw diagnostic, openclaw 修复, openclaw 崩溃, openclaw 配置错误, openclaw 坏了, openclaw gateway crash, openclaw plist, openclaw launchagent, clawaid, npx clawaid, openclaw troubleshoot, openclaw debug, openclaw not starting, openclaw 启动失败">
+<meta property="og:title" content="ClawAid — Fix OpenClaw in One Command">
+<meta property="og:description" content="OpenClaw broken? Gateway crash? Config corrupted? One command: npx clawaid. Auto-diagnose and fix. 100% free.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://clawaid.app">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ClawAid — Fix OpenClaw in One Command">
+<meta name="twitter:description" content="OpenClaw broken? Run npx clawaid — auto-diagnose and fix in one command. 100% free.">
+<link rel="canonical" href="https://clawaid.app">
+<script>
+  (function() {
+    var lang = navigator.language || '';
+    if (!lang.toLowerCase().startsWith('zh')) {
+      document.documentElement.lang = 'en';
+      document.documentElement.setAttribute('data-lang', 'en');
+    } else {
+      document.documentElement.setAttribute('data-lang', 'zh');
+    }
+  })();
+</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","vt5wimnmsf");</script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --blue: #1a73e8;
+  --blue-dark: #1557b0;
+  --green: #34a853;
+  --red: #ea4335;
+  --text: #202124;
+  --text2: #5f6368;
+  --border: #dadce0;
+  --bg: #f8f9fa;
+  --white: #fff;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  color: var(--text);
+  background: var(--white);
+  line-height: 1.6;
+}
+.btn { display: inline-block; padding: 10px 24px; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer; text-decoration: none; border: none; transition: all 0.15s; }
+.btn-primary { background: var(--blue); color: white; }
+.btn-primary:hover { background: var(--blue-dark); }
+.btn-outline { border: 1px solid var(--border); color: var(--text); background: white; }
+.btn-outline:hover { background: var(--bg); }
+
+nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 40px; border-bottom: 1px solid var(--border);
+  position: sticky; top: 0;
+  background: rgba(255,255,255,0.96); backdrop-filter: blur(8px); z-index: 100;
+}
+.nav-logo { font-size: 20px; font-weight: 700; text-decoration: none; color: var(--text); }
+.nav-links { display: flex; gap: 20px; align-items: center; }
+.nav-links a { color: var(--text2); text-decoration: none; font-size: 14px; }
+.nav-links a:hover { color: var(--text); }
+.lang-btn { background: none; border: 1px solid var(--border); padding: 5px 11px; border-radius: 6px; cursor: pointer; font-size: 13px; color: var(--text2); }
+.lang-btn:hover { background: var(--bg); }
+
+.hero { text-align: center; padding: 72px 24px 56px; max-width: 760px; margin: 0 auto; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #e6f4ea; color: #137333;
+  font-size: 13px; font-weight: 500; padding: 4px 12px; border-radius: 20px; margin-bottom: 28px;
+}
+.hero h1 { font-size: clamp(34px, 5vw, 54px); font-weight: 800; line-height: 1.15; margin-bottom: 16px; letter-spacing: -0.5px; }
+.hero-promise {
+  display: inline-block;
+  font-size: 16px; color: var(--text2); margin-bottom: 36px;
+}
+.hero-promise strong { color: var(--green); }
+.hero-cmd {
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  background: #1e1e1e; color: #f8f8f2;
+  padding: 14px 28px; border-radius: 10px;
+  font-family: "SF Mono", "Fira Code", monospace; font-size: 17px;
+  cursor: pointer; margin-bottom: 14px;
+  width: fit-content; margin-left: auto; margin-right: auto;
+}
+.hero-cmd .copy-hint { font-size: 12px; color: #666; }
+.hero-cmd:hover .copy-hint { color: #999; }
+.hero-note { font-size: 13px; color: var(--text2); }
+.hero-trust {
+  display: flex; justify-content: center; gap: 24px; margin-top: 32px;
+  flex-wrap: wrap;
+}
+.trust-item { font-size: 13px; color: var(--text2); display: flex; align-items: center; gap: 5px; }
+.trust-item span { color: var(--green); font-weight: 600; }
+
+.problems { background: var(--bg); padding: 56px 24px; }
+.problems-inner { max-width: 700px; margin: 0 auto; }
+.section-label { font-size: 13px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 20px; }
+.problem-list { list-style: none; }
+.problem-list li {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 0; border-bottom: 1px solid var(--border); font-size: 15px;
+}
+.problem-list li:last-child { border-bottom: none; }
+.p-icon { font-size: 18px; flex-shrink: 0; width: 26px; }
+.p-fixed { margin-left: auto; font-size: 12px; font-weight: 600; color: var(--green); background: #e6f4ea; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
+
+.how { padding: 64px 24px; max-width: 680px; margin: 0 auto; }
+.how h2 { font-size: 26px; font-weight: 700; margin-bottom: 32px; }
+.steps { display: flex; flex-direction: column; gap: 0; }
+.step { display: flex; gap: 20px; position: relative; padding-bottom: 28px; }
+.step:last-child { padding-bottom: 0; }
+.step-line { display: flex; flex-direction: column; align-items: center; }
+.step-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--blue); color: white;
+  font-size: 14px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.step-connector { width: 2px; background: #e0e0e0; flex: 1; margin-top: 4px; }
+.step:last-child .step-connector { display: none; }
+.step-body { padding-top: 4px; }
+.step-body h3 { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+.step-body p { font-size: 14px; color: var(--text2); }
+
+/* Stats banner */
+.stats-banner { padding: 48px 24px; text-align: center; }
+.stats-inner { max-width: 600px; margin: 0 auto; display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; }
+.stat { text-align: center; }
+.stat-num { font-size: 36px; font-weight: 800; color: var(--blue); }
+.stat-label { font-size: 13px; color: var(--text2); margin-top: 4px; }
+
+.faq { padding: 64px 24px; max-width: 640px; margin: 0 auto; }
+.faq h2 { font-size: 26px; font-weight: 700; margin-bottom: 28px; }
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-q { font-size: 15px; font-weight: 600; padding: 18px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.faq-arrow { transition: transform 0.2s; flex-shrink: 0; font-size: 12px; color: var(--text2); }
+.faq-item.open .faq-arrow { transform: rotate(180deg); }
+.faq-a { font-size: 14px; color: var(--text2); padding-bottom: 16px; display: none; line-height: 1.7; }
+.faq-item.open .faq-a { display: block; }
+
+footer { text-align: center; padding: 28px 24px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text2); }
+
+@media (max-width: 600px) {
+  nav { padding: 12px 16px; }
+  .hero { padding: 48px 16px 40px; }
+  .hero-cmd { font-size: 15px; padding: 12px 20px; }
+  .hero-trust { gap: 16px; }
+  .stats-inner { gap: 32px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">🦞🩹 ClawAid</a>
+  <div class="nav-links">
+    <a href="https://github.com/jjj5666/clawaid" target="_blank">GitHub</a>
+    <button onclick="toggleLang()" class="lang-btn" id="lang-btn">EN</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">🆓 <span data-i18n="hero_tag">完全免费</span></div>
+  <h1 data-i18n="hero_title">OpenClaw 挂了？<br>一行命令自动修好</h1>
+  <p class="hero-promise" data-i18n="hero_promise">AI 自动诊断 · 一键修复 · <strong>完全免费，无限使用</strong></p>
+  <div class="hero-cmd" onclick="copyCmd(this)">
+    <span>npx clawaid</span>
+    <span class="copy-hint" data-i18n="copy_hint">点击复制</span>
+  </div>
+  <div class="hero-note" data-i18n="hero_note">需要 Node.js 18+ · 完全免费</div>
+  <div class="hero-trust">
+    <div class="trust-item"><span>✓</span> <span data-i18n="t1">100% 免费</span></div>
+    <div class="trust-item"><span>✓</span> <span data-i18n="t2">无需注册账号</span></div>
+    <div class="trust-item"><span>✓</span> <span data-i18n="t3">数据本地执行</span></div>
+    <div class="trust-item"><span>✓</span> <span data-i18n="t4">开源</span></div>
+  </div>
+</section>
+
+<!-- PROBLEMS -->
+<section class="problems">
+  <div class="problems-inner">
+    <div class="section-label" data-i18n="prob_label">能修这些问题</div>
+    <ul class="problem-list">
+      <li><span class="p-icon">💀</span><span data-i18n="p1">Gateway 完全挂掉，重启也没用</span><span class="p-fixed" data-i18n="auto_fix">✓ 自动修复</span></li>
+      <li><span class="p-icon">⚙️</span><span data-i18n="p2">配置文件被改坏，报错看不懂</span><span class="p-fixed" data-i18n="auto_fix">✓ 自动修复</span></li>
+      <li><span class="p-icon">🌐</span><span data-i18n="p3">网络连接异常，AI 一直转圈</span><span class="p-fixed" data-i18n="auto_fix">✓ 自动修复</span></li>
+      <li><span class="p-icon">🔌</span><span data-i18n="p4">端口冲突，启动就报错</span><span class="p-fixed" data-i18n="auto_fix">✓ 自动修复</span></li>
+      <li><span class="p-icon">🤖</span><span data-i18n="p5">换了模型/换了 API，突然用不了</span><span class="p-fixed" data-i18n="auto_fix">✓ 自动修复</span></li>
+      <li><span class="p-icon">🔄</span><span data-i18n="p6">更新 OpenClaw 后出现各种奇怪问题</span><span class="p-fixed" data-i18n="auto_fix">✓ 自动修复</span></li>
+      <li><span class="p-icon">❓</span><span data-i18n="p7">不知道哪里出了问题，就是用不了</span><span class="p-fixed" data-i18n="auto_fix">✓ 自动修复</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="how" id="how">
+  <h2 data-i18n="how_title">怎么用</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-line"><div class="step-num">1</div><div class="step-connector"></div></div>
+      <div class="step-body">
+        <h3 data-i18n="s1t">运行命令</h3>
+        <p data-i18n="s1d">终端输入 npx clawaid，浏览器自动打开诊断界面</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-line"><div class="step-num">2</div><div class="step-connector"></div></div>
+      <div class="step-body">
+        <h3 data-i18n="s2t">点击扫描</h3>
+        <p data-i18n="s2d">AI 自动读取系统状态，30秒内完成诊断，找出根本原因</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-line"><div class="step-num">3</div><div class="step-connector"></div></div>
+      <div class="step-body">
+        <h3 data-i18n="s3t">一键修复</h3>
+        <p data-i18n="s3d">确认修复方案，AI 自动执行并验证结果</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-banner">
+  <div class="stats-inner">
+    <div class="stat">
+      <div class="stat-num" data-i18n="stat1_num">33+</div>
+      <div class="stat-label" data-i18n="stat1_label">用户</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" data-i18n="stat2_num">82%</div>
+      <div class="stat-label" data-i18n="stat2_label">修复成功率</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" data-i18n="stat3_num">7</div>
+      <div class="stat-label" data-i18n="stat3_label">国家/地区</div>
+    </div>
+  </div>
+</section>
+
+<!-- GUIDE -->
+<section style="padding: 0 24px 64px; max-width: 640px; margin: 0 auto;">
+  <div style="border: 1px solid var(--border); border-radius: 12px; overflow: hidden;">
+    <div onclick="toggleGuide(this)" style="padding: 18px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none;">
+      <span style="font-size: 15px; font-weight: 600;" data-i18n="guide_toggle">第一次用终端？看这里 →</span>
+      <span style="color: var(--text2); font-size: 12px; transition: transform 0.2s;" class="guide-arrow">▼</span>
+    </div>
+    <div class="guide-body" style="display: none; padding: 0 24px 24px; border-top: 1px solid var(--border);">
+      <ol style="list-style: none; margin-top: 20px;">
+        <li style="display: flex; gap: 14px; margin-bottom: 20px; align-items: flex-start;">
+          <div style="width: 26px; height: 26px; border-radius: 50%; background: var(--blue); color: white; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">1</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 600; margin-bottom: 3px;" data-i18n="g1t">打开"终端"</div>
+            <div style="font-size: 13px; color: var(--text2);" data-i18n="g1d">按 <kbd style="background:#f1f3f4;padding:1px 6px;border-radius:4px;font-family:monospace;">⌘ 空格</kbd>，输入「终端」，回车打开</div>
+          </div>
+        </li>
+        <li style="display: flex; gap: 14px; margin-bottom: 20px; align-items: flex-start;">
+          <div style="width: 26px; height: 26px; border-radius: 50%; background: var(--blue); color: white; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">2</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 600; margin-bottom: 3px;" data-i18n="g2t">粘贴这行命令</div>
+            <div style="background: #1e1e1e; color: #f8f8f2; padding: 10px 14px; border-radius: 6px; font-family: monospace; font-size: 14px; margin-top: 6px; cursor: pointer; display: flex; justify-content: space-between;" onclick="copyCmd2(this)">
+              <span>npx clawaid</span>
+              <span style="color: #666; font-size: 12px;" data-i18n="copy_hint">点击复制</span>
+            </div>
+          </div>
+        </li>
+        <li style="display: flex; gap: 14px; margin-bottom: 20px; align-items: flex-start;">
+          <div style="width: 26px; height: 26px; border-radius: 50%; background: var(--blue); color: white; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">3</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 600; margin-bottom: 3px;" data-i18n="g3t">按回车，等待浏览器自动打开</div>
+            <div style="font-size: 13px; color: var(--text2);" data-i18n="g3d">首次运行会下载工具（约 10 秒），之后浏览器自动弹出</div>
+          </div>
+        </li>
+        <li style="display: flex; gap: 14px; align-items: flex-start;">
+          <div style="width: 26px; height: 26px; border-radius: 50%; background: var(--green); color: white; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">4</div>
+          <div>
+            <div style="font-size: 14px; font-weight: 600; margin-bottom: 3px;" data-i18n="g4t">点击「Start Scan」</div>
+            <div style="font-size: 13px; color: var(--text2);" data-i18n="g4d">等 30 秒，AI 自动诊断并给出修复方案</div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <h2 data-i18n="faq_title">常见问题</h2>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq_q1">会不会泄露我的 OpenClaw 配置？</span><span class="faq-arrow">▼</span></div>
+    <div class="faq-a" data-i18n="faq_a1">不会。API Key 上传前自动脱敏，数据只用于本次诊断，不存储。修复命令在你本地执行。</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq_q2">需要提前安装什么吗？</span><span class="faq-arrow">▼</span></div>
+    <div class="faq-a" data-i18n="faq_a2">只需要 Node.js 18+，运行 npx clawaid 即可，无需安装，无需账号。</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq_q3">真的完全免费？</span><span class="faq-arrow">▼</span></div>
+    <div class="faq-a" data-i18n="faq_a3">是的，诊断和修复全部免费，没有隐藏收费，没有使用次数限制。</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq_q4">支持哪些系统？</span><span class="faq-arrow">▼</span></div>
+    <div class="faq-a" data-i18n="faq_a4">macOS（Intel 和 Apple Silicon）、Linux、Windows。</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)"><span data-i18n="faq_q5">修不好怎么办？</span><span class="faq-arrow">▼</span></div>
+    <div class="faq-a" data-i18n="faq_a5">如果 AI 修不了你的问题，可以到 <a href="https://discord.com/invite/clawd" style="color:var(--blue)">OpenClaw Discord</a> 社区寻求帮助，或在 <a href="https://github.com/jjj5666/clawaid/issues" style="color:var(--blue)">GitHub 提 issue</a>。</div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 ClawAid · <span data-i18n="footer_note">非官方工具，与 OpenClaw 官方无关</span></p>
+</footer>
+
+<script>
+const T = {
+  zh: {
+    hero_tag:'完全免费',
+    hero_title:'OpenClaw 挂了？<br>一行命令自动修好',
+    hero_promise:'AI 自动诊断 · 一键修复 · <strong>完全免费，无限使用</strong>',
+    copy_hint:'点击复制', hero_note:'需要 Node.js 18+ · 完全免费',
+    t1:'100% 免费', t2:'无需注册账号', t3:'数据本地执行', t4:'开源',
+    prob_label:'能修这些问题', auto_fix:'✓ 自动修复',
+    p1:'Gateway 完全挂掉，重启也没用',
+    p2:'配置文件被改坏，报错看不懂',
+    p3:'网络连接异常，AI 一直转圈',
+    p4:'端口冲突，启动就报错',
+    p5:'换了模型/换了 API，突然用不了',
+    p6:'更新 OpenClaw 后出现各种奇怪问题',
+    p7:'不知道哪里出了问题，就是用不了',
+    how_title:'怎么用',
+    s1t:'运行命令', s1d:'终端输入 npx clawaid，浏览器自动打开诊断界面',
+    s2t:'点击扫描', s2d:'AI 自动读取系统状态，30秒内完成诊断，找出根本原因',
+    s3t:'一键修复', s3d:'确认修复方案，AI 自动执行并验证结果',
+    stat1_num:'33+', stat1_label:'用户',
+    stat2_num:'82%', stat2_label:'修复成功率',
+    stat3_num:'7', stat3_label:'国家/地区',
+    faq_title:'常见问题',
+    faq_q1:'会不会泄露我的 OpenClaw 配置？',
+    faq_a1:'不会。API Key 上传前自动脱敏，数据只用于本次诊断，不存储。修复命令在你本地执行。',
+    faq_q2:'需要提前安装什么吗？',
+    faq_a2:'只需要 Node.js 18+，运行 npx clawaid 即可，无需安装，无需账号。',
+    faq_q3:'真的完全免费？',
+    faq_a3:'是的，诊断和修复全部免费，没有隐藏收费，没有使用次数限制。',
+    faq_q4:'支持哪些系统？',
+    faq_a4:'macOS（Intel 和 Apple Silicon）、Linux、Windows。',
+    faq_q5:'修不好怎么办？',
+    faq_a5:'如果 AI 修不了你的问题，可以到 <a href="https://discord.com/invite/clawd" style="color:var(--blue)">OpenClaw Discord</a> 社区寻求帮助，或在 <a href="https://github.com/jjj5666/clawaid/issues" style="color:var(--blue)">GitHub 提 issue</a>。',
+    guide_toggle:'第一次用终端？看这里 →',
+    g1t:'打开"终端"', g1d:'按 <kbd style="background:#f1f3f4;padding:1px 6px;border-radius:4px;font-family:monospace;">⌘ 空格</kbd>，输入「终端」，回车打开',
+    g2t:'粘贴这行命令',
+    g3t:'按回车，等待浏览器自动打开', g3d:'首次运行会下载工具（约 10 秒），之后浏览器自动弹出',
+    g4t:'点击「Start Scan」', g4d:'等 30 秒，AI 自动诊断并给出修复方案',
+    footer_note:'非官方工具，与 OpenClaw 官方无关',
+  },
+  en: {
+    hero_tag:'100% Free',
+    hero_title:'OpenClaw broken?<br>Fix it in one command.',
+    hero_promise:'AI diagnostics · One-click repair · <strong>100% free, unlimited use</strong>',
+    copy_hint:'Click to copy', hero_note:'Requires Node.js 18+ · Completely free',
+    t1:'100% free', t2:'No account needed', t3:'Runs locally', t4:'Open source',
+    prob_label:'What it fixes', auto_fix:'✓ Auto-fixed',
+    p1:"Gateway completely down, won't restart",
+    p2:'Config file corrupted, confusing error messages',
+    p3:'Network issues, AI just keeps spinning',
+    p4:'Port conflict on startup',
+    p5:'Switched model or API key, now broken',
+    p6:'Updated OpenClaw, now something is weird',
+    p7:"Something's wrong but I have no idea what",
+    how_title:'How it works',
+    s1t:'Run the command', s1d:'Type npx clawaid in your terminal — browser opens automatically',
+    s2t:'Start scan', s2d:'AI reads your system state and diagnoses the root cause in ~30 seconds',
+    s3t:'One-click fix', s3d:'Confirm the repair plan, AI fixes everything and verifies the result',
+    stat1_num:'33+', stat1_label:'Users',
+    stat2_num:'82%', stat2_label:'Fix rate',
+    stat3_num:'7', stat3_label:'Countries',
+    faq_title:'FAQ',
+    faq_q1:'Will it expose my OpenClaw config?',
+    faq_a1:'No. API keys are redacted before upload. Data is used only for this session and never stored. Repair commands run locally on your machine.',
+    faq_q2:'Do I need to install anything?',
+    faq_a2:'Just Node.js 18+. Run npx clawaid — no pre-install, no account, no configuration.',
+    faq_q3:'Is it really free?',
+    faq_a3:'Yes, diagnosis and repair are completely free. No hidden fees, no usage limits.',
+    faq_q4:'Which platforms are supported?',
+    faq_a4:'macOS (Intel and Apple Silicon), Linux, and Windows.',
+    faq_q5:'What if it can\'t fix my problem?',
+    faq_a5:'If AI can\'t fix your issue, head to the <a href="https://discord.com/invite/clawd" style="color:var(--blue)">OpenClaw Discord</a> community for help, or <a href="https://github.com/jjj5666/clawaid/issues" style="color:var(--blue)">open a GitHub issue</a>.',
+    guide_toggle:'New to Terminal? Start here →',
+    g1t:'Open Terminal', g1d:'Press <kbd style="background:#f1f3f4;padding:1px 6px;border-radius:4px;font-family:monospace;">⌘ Space</kbd>, type "Terminal", press Enter',
+    g2t:'Paste this command',
+    g3t:'Press Enter and wait', g3d:'First run downloads the tool (~10 sec), then your browser opens automatically',
+    g4t:'Click "Start Scan"', g4d:'Wait ~30 seconds — AI diagnoses and shows a repair plan',
+    footer_note:'Unofficial tool, not affiliated with OpenClaw.',
+  }
+};
+
+let currentLang = document.documentElement.getAttribute('data-lang') || 'zh';
+
+function applyLang(lang) {
+  currentLang = lang;
+  const dict = T[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key] !== undefined) {
+      if (el.tagName === 'INPUT') el.placeholder = dict[key];
+      else el.innerHTML = dict[key];
+    }
+  });
+  document.getElementById('lang-btn').textContent = lang === 'zh' ? 'EN' : '中';
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+}
+
+function toggleLang() { applyLang(currentLang === 'zh' ? 'en' : 'zh'); }
+applyLang(currentLang);
+
+function copyCmd(el) {
+  navigator.clipboard.writeText('npx clawaid').then(() => {
+    const h = el.querySelector('.copy-hint');
+    const orig = h.textContent;
+    h.textContent = currentLang === 'zh' ? '已复制！' : 'Copied!';
+    setTimeout(() => h.textContent = orig, 2000);
+  });
+}
+
+function copyCmd2(el) {
+  navigator.clipboard.writeText('npx clawaid').then(() => {
+    const hint = el.querySelector('[data-i18n="copy_hint"]');
+    const orig = hint.textContent;
+    hint.textContent = currentLang === 'zh' ? '已复制！' : 'Copied!';
+    setTimeout(() => hint.textContent = orig, 2000);
+  });
+}
+
+function toggleFaq(el) { el.closest('.faq-item').classList.toggle('open'); }
+
+function toggleGuide(el) {
+  const body = el.nextElementSibling;
+  const arrow = el.querySelector('.guide-arrow');
+  const isOpen = body.style.display !== 'none';
+  body.style.display = isOpen ? 'none' : 'block';
+  arrow.style.transform = isOpen ? '' : 'rotate(180deg)';
+}
+</script>
+</body>
+</html>
