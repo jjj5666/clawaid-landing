@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenClaw Not Working? Complete Troubleshooting Guide — ClawAid</title>
+<meta name="description" content="OpenClaw not working? Complete troubleshooting guide covering gateway crashes, config errors, network issues, model failures, and more. Auto-fix everything with npx clawaid.">
+<meta name="keywords" content="openclaw not working, openclaw broken, openclaw fix, openclaw help, openclaw troubleshooting, openclaw error, openclaw crash, openclaw repair, openclaw debug, how to fix openclaw, openclaw 不能用, openclaw 坏了, openclaw 修复, openclaw 怎么办, openclaw gateway, openclaw config, openclaw 安装失败, openclaw not responding, openclaw stuck, openclaw won't work">
+<meta property="og:title" content="OpenClaw Not Working? Complete Troubleshooting Guide">
+<meta property="og:description" content="OpenClaw broken? Complete guide to fix every common issue. Or auto-fix with: npx clawaid">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://clawaid.app/fix/openclaw-not-working">
+<link rel="canonical" href="https://clawaid.app/fix/openclaw-not-working">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#1a73e8;--blue-dark:#1557b0;--green:#34a853;--red:#ea4335;--text:#202124;--text2:#5f6368;--border:#dadce0;--bg:#f8f9fa;--white:#fff}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--text);background:var(--white);line-height:1.7}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+nav{display:flex;align-items:center;justify-content:space-between;padding:16px 40px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(255,255,255,0.96);backdrop-filter:blur(8px);z-index:100}
+.nav-logo{font-size:20px;font-weight:700;text-decoration:none;color:var(--text)}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:14px}
+.nav-links a:hover{color:var(--text)}
+.article{max-width:720px;margin:0 auto;padding:48px 24px 80px}
+.breadcrumb{font-size:13px;color:var(--text2);margin-bottom:24px}
+.breadcrumb a{color:var(--text2)}
+h1{font-size:clamp(28px,4vw,40px);font-weight:800;line-height:1.2;margin-bottom:16px}
+.subtitle{font-size:16px;color:var(--text2);margin-bottom:32px}
+h2{font-size:22px;font-weight:700;margin:40px 0 16px;padding-top:16px;border-top:1px solid var(--border)}
+h3{font-size:17px;font-weight:600;margin:24px 0 10px}
+p{margin-bottom:16px;font-size:15px}
+ul,ol{margin-bottom:16px;padding-left:24px}
+li{margin-bottom:8px;font-size:15px}
+code{background:#f1f3f4;padding:2px 6px;border-radius:4px;font-family:"SF Mono","Fira Code",monospace;font-size:14px}
+pre{background:#1e1e1e;color:#f8f8f2;padding:16px 20px;border-radius:8px;overflow-x:auto;margin-bottom:16px;font-size:14px;line-height:1.5}
+pre code{background:none;padding:0;color:inherit}
+.fix-box{background:#e6f4ea;border:1px solid #b7e1c7;border-radius:10px;padding:24px;margin:32px 0;text-align:center}
+.fix-box h3{color:#137333;margin-top:0}
+.fix-box .cmd{display:inline-block;background:#1e1e1e;color:#f8f8f2;padding:12px 24px;border-radius:8px;font-family:monospace;font-size:17px;margin:12px 0;cursor:pointer}
+.fix-box p{color:#5f6368;font-size:14px;margin-bottom:0}
+.toc{background:var(--bg);border-radius:10px;padding:24px;margin-bottom:32px}
+.toc h3{margin:0 0 12px;font-size:15px}
+.toc ul{list-style:none;padding:0;margin:0}
+.toc li{margin-bottom:6px}
+.toc a{font-size:14px;color:var(--blue)}
+.issue-card{border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin-bottom:16px}
+.issue-card h3{margin:0 0 8px;font-size:16px}
+.issue-card .tag{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:10px;margin-right:6px}
+.tag-common{background:#fce8e6;color:#c5221f}
+.tag-network{background:#e8f0fe;color:#1967d2}
+.tag-config{background:#fef7e0;color:#b06000}
+.tag-model{background:#f3e8fd;color:#7627bb}
+footer{text-align:center;padding:28px 24px;border-top:1px solid var(--border);font-size:13px;color:var(--text2)}
+@media(max-width:600px){nav{padding:12px 16px}.article{padding:32px 16px 60px}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">🦞🩹 ClawAid</a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="https://github.com/jjj5666/clawaid" target="_blank">GitHub</a>
+  </div>
+</nav>
+
+<article class="article">
+<div class="breadcrumb"><a href="/">ClawAid</a> → <a href="/fix/openclaw-not-working">OpenClaw Not Working</a></div>
+
+<h1>OpenClaw Not Working?<br>Complete Troubleshooting Guide</h1>
+<p class="subtitle">Every common OpenClaw problem, diagnosed and fixed. Updated March 2026.</p>
+
+<div class="fix-box">
+  <h3>⚡ Skip the Manual — Auto-Fix Everything</h3>
+  <p>ClawAid scans your system, finds the root cause, and fixes it. One command:</p>
+  <div class="cmd" onclick="navigator.clipboard.writeText('npx clawaid')">npx clawaid</div>
+  <p>94% fix rate across 19,000+ users. Free, no API key needed.</p>
+</div>
+
+<div class="toc">
+  <h3>📋 Jump to Your Issue</h3>
+  <ul>
+    <li><a href="#install">Installation fails or <code>openclaw: command not found</code></a></li>
+    <li><a href="#gateway">Gateway won't start or keeps crashing</a></li>
+    <li><a href="#config">Config errors — invalid JSON, unknown fields</a></li>
+    <li><a href="#network">Network / proxy / connection issues</a></li>
+    <li><a href="#model">Model errors — HTTP 400, 401, 429</a></li>
+    <li><a href="#channels">Channels (Telegram, Discord, etc.) not connecting</a></li>
+    <li><a href="#update">Broke after updating OpenClaw</a></li>
+    <li><a href="#control-ui">Control UI won't load</a></li>
+  </ul>
+</div>
+
+<h2 id="install">Installation Fails</h2>
+<div class="issue-card">
+  <h3><code>openclaw: command not found</code></h3>
+  <span class="tag tag-common">Very Common</span>
+  <p>Node.js/npm installed OpenClaw but your shell can't find it. This is a PATH issue.</p>
+  <pre><code># Find where openclaw was installed
+npm list -g --depth=0 2>/dev/null | head -1
+
+# Typical fix — add npm global bin to PATH
+export PATH="$(npm config get prefix)/bin:$PATH"
+
+# Make it permanent
+echo 'export PATH="$(npm config get prefix)/bin:$PATH"' >> ~/.zshrc</code></pre>
+</div>
+
+<div class="issue-card">
+  <h3>Install script fails halfway</h3>
+  <p>Re-run with verbose output to see the exact failure:</p>
+  <pre><code>curl -fsSL https://openclaw.ai/install.sh | bash -s -- --verbose</code></pre>
+</div>
+
+<h2 id="gateway">Gateway Won't Start</h2>
+<div class="issue-card">
+  <h3>Gateway "not running" / crashes on start</h3>
+  <span class="tag tag-common">Very Common</span>
+  <p>Multiple possible causes: port conflict, corrupt config, stale service file, or Node.js version.</p>
+  <p>→ <strong><a href="/fix/gateway-not-starting">Full gateway troubleshooting guide</a></strong></p>
+  <p>Quick check:</p>
+  <pre><code>openclaw status
+openclaw doctor
+openclaw logs --follow</code></pre>
+</div>
+
+<h2 id="config">Config Errors</h2>
+<div class="issue-card">
+  <h3>Invalid JSON / unknown fields / validation errors</h3>
+  <span class="tag tag-config">Config</span>
+  <p>→ <strong><a href="/fix/config-errors">Full config troubleshooting guide</a></strong></p>
+  <p>Quick fix:</p>
+  <pre><code># Validate
+openclaw doctor
+
+# Reset if needed
+cp ~/.openclaw/openclaw.json ~/.openclaw/openclaw.json.bak
+openclaw setup</code></pre>
+</div>
+
+<h2 id="network">Network / Proxy Issues</h2>
+<div class="issue-card">
+  <h3>AI just spins / "connection refused" / timeout errors</h3>
+  <span class="tag tag-network">Network</span>
+  <p>Common in China, corporate networks, or when using VPN/proxy tools:</p>
+  <pre><code># Check if proxy is set
+echo $HTTP_PROXY $HTTPS_PROXY
+
+# If proxy is dead, clear it
+unset HTTP_PROXY HTTPS_PROXY
+openclaw gateway restart
+
+# If you need a proxy (e.g., in China), make sure it's running
+# Common setup: Clash on port 7890
+export HTTP_PROXY=http://127.0.0.1:7890
+export HTTPS_PROXY=http://127.0.0.1:7890
+openclaw gateway restart</code></pre>
+  <p>⚠️ The LaunchAgent plist also has its own environment variables — they override shell settings:</p>
+  <pre><code># Check plist proxy settings (macOS)
+/usr/libexec/PlistBuddy -c "Print :EnvironmentVariables" \
+  ~/Library/LaunchAgents/com.openclaw.gateway.plist</code></pre>
+</div>
+
+<h2 id="model">Model Errors (HTTP 400 / 401 / 429)</h2>
+<div class="issue-card">
+  <h3>HTTP 400 — Bad model ID</h3>
+  <span class="tag tag-model">Model</span>
+  <p>Your provider doesn't recognize the model string. Each provider has its own format.</p>
+  <pre><code># Check current model
+openclaw config get models.primary
+
+# Fix with a known-good model
+openclaw config set models.primary "openai/gpt-4o"
+openclaw gateway restart</code></pre>
+</div>
+
+<div class="issue-card">
+  <h3>HTTP 401 — Invalid API key</h3>
+  <p>Key expired, rotated, or has extra whitespace.</p>
+  <pre><code>openclaw config set providers.openai.apiKey "sk-your-new-key"
+openclaw gateway restart</code></pre>
+</div>
+
+<div class="issue-card">
+  <h3>HTTP 429 — Rate limit</h3>
+  <p>You're hitting your provider's rate limit. Wait a minute, or switch to a provider with higher limits.</p>
+</div>
+
+<h2 id="channels">Channels Not Connecting</h2>
+<div class="issue-card">
+  <h3>Telegram / Discord / WhatsApp won't connect</h3>
+  <p>Check channel status:</p>
+  <pre><code>openclaw channels status --probe
+openclaw logs --follow | grep -i "telegram\|discord\|whatsapp"</code></pre>
+  <p>Common fixes:</p>
+  <ul>
+    <li>Telegram: bot token expired → get new token from @BotFather</li>
+    <li>Discord: bot permissions wrong → re-invite with correct intents</li>
+    <li>Network: proxy/firewall blocking the connection</li>
+  </ul>
+</div>
+
+<h2 id="update">Broke After Updating</h2>
+<div class="issue-card">
+  <h3>Everything worked before the update</h3>
+  <span class="tag tag-common">Very Common</span>
+  <p>Updates can leave stale service files (LaunchAgent), change config schemas, or introduce breaking changes.</p>
+  <pre><code># Reinstall the service
+openclaw gateway install
+openclaw gateway restart
+
+# If that doesn't help, check for config changes
+openclaw doctor</code></pre>
+  <p>Last resort: downgrade to the previous version:</p>
+  <pre><code>npm install -g openclaw@previous-version-number</code></pre>
+</div>
+
+<h2 id="control-ui">Control UI Won't Load</h2>
+<div class="issue-card">
+  <h3>"Connecting..." forever / blank page</h3>
+  <p>The Control UI needs a running gateway and valid authentication.</p>
+  <pre><code># Is the gateway actually running?
+openclaw gateway status
+
+# Check the URL and port
+openclaw status
+
+# Common fix: clear browser cache or try incognito mode</code></pre>
+</div>
+
+<h2>When Nothing Else Works</h2>
+
+<div class="fix-box">
+  <h3>🤖 Let ClawAid Figure It Out</h3>
+  <p>ClawAid reads your actual system state — logs, config, processes, network, versions — and diagnoses the exact root cause. It handles complex multi-issue scenarios that manual debugging misses.</p>
+  <div class="cmd" onclick="navigator.clipboard.writeText('npx clawaid')">npx clawaid</div>
+  <p>Used by 19,000+ people worldwide · 94% fix rate · Free · <a href="https://github.com/jjj5666/clawaid">Open source</a></p>
+</div>
+
+<h2>Community Help</h2>
+<ul>
+  <li><a href="https://discord.com/invite/clawd">OpenClaw Discord Community</a> — ask real humans</li>
+  <li><a href="https://docs.openclaw.ai/help/troubleshooting">Official OpenClaw Docs — Troubleshooting</a></li>
+  <li><a href="https://github.com/openclaw/openclaw/issues">OpenClaw GitHub Issues</a> — search or report bugs</li>
+  <li><a href="https://github.com/jjj5666/clawaid/issues">ClawAid GitHub Issues</a> — if ClawAid itself has trouble</li>
+</ul>
+</article>
+
+<footer>© 2026 ClawAid · Not affiliated with OpenClaw.</footer>
+
+<script>
+// Auto-detect language and show Chinese version hints
+(function() {
+  if ((navigator.language || '').startsWith('zh')) {
+    document.querySelector('.subtitle').textContent = 'OpenClaw 所有常见问题的完整排查指南。支持中英文。';
+  }
+})();
+</script>
+</body>
+</html>

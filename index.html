@@ -311,6 +311,25 @@ footer { text-align: center; padding: 28px 24px; border-top: 1px solid var(--bor
   </div>
 </section>
 
+<!-- TROUBLESHOOTING GUIDES -->
+<section style="padding: 48px 24px; max-width: 640px; margin: 0 auto;">
+  <div style="font-size: 13px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 20px;" data-i18n="guides_label">故障排除指南</div>
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    <a href="/fix/openclaw-not-working" style="display: block; padding: 16px 20px; border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); transition: box-shadow 0.15s;" onmouseover="this.style.boxShadow='0 2px 12px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='none'">
+      <div style="font-size: 15px; font-weight: 600;" data-i18n="guide1_title">OpenClaw 不能用？完整排查指南</div>
+      <div style="font-size: 13px; color: var(--text2); margin-top: 4px;" data-i18n="guide1_desc">覆盖安装、Gateway、配置、网络、模型等所有常见问题</div>
+    </a>
+    <a href="/fix/gateway-not-starting" style="display: block; padding: 16px 20px; border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); transition: box-shadow 0.15s;" onmouseover="this.style.boxShadow='0 2px 12px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='none'">
+      <div style="font-size: 15px; font-weight: 600;" data-i18n="guide2_title">Gateway 启动失败怎么修</div>
+      <div style="font-size: 13px; color: var(--text2); margin-top: 4px;" data-i18n="guide2_desc">端口冲突、LaunchAgent、Node.js 版本、代理环境变量</div>
+    </a>
+    <a href="/fix/config-errors" style="display: block; padding: 16px 20px; border: 1px solid var(--border); border-radius: 10px; text-decoration: none; color: var(--text); transition: box-shadow 0.15s;" onmouseover="this.style.boxShadow='0 2px 12px rgba(0,0,0,0.08)'" onmouseout="this.style.boxShadow='none'">
+      <div style="font-size: 15px; font-weight: 600;" data-i18n="guide3_title">配置文件报错怎么修</div>
+      <div style="font-size: 13px; color: var(--text2); margin-top: 4px;" data-i18n="guide3_desc">JSON 语法错误、模型 ID 不对、API Key 过期</div>
+    </a>
+  </div>
+</section>
+
 <footer>
   <p>© 2026 ClawAid · <span data-i18n="footer_note">非官方工具，与 OpenClaw 官方无关</span></p>
 </footer>
@@ -355,6 +374,13 @@ const T = {
     g3t:'按回车，等待浏览器自动打开', g3d:'首次运行会下载工具（约 10 秒），之后浏览器自动弹出',
     g4t:'点击「Start Scan」', g4d:'等 30 秒，AI 自动诊断并给出修复方案',
     footer_note:'非官方工具，与 OpenClaw 官方无关',
+    guides_label:'故障排除指南',
+    guide1_title:'OpenClaw 不能用？完整排查指南',
+    guide1_desc:'覆盖安装、Gateway、配置、网络、模型等所有常见问题',
+    guide2_title:'Gateway 启动失败怎么修',
+    guide2_desc:'端口冲突、LaunchAgent、Node.js 版本、代理环境变量',
+    guide3_title:'配置文件报错怎么修',
+    guide3_desc:'JSON 语法错误、模型 ID 不对、API Key 过期',
   },
   en: {
     hero_tag:'100% Free',
@@ -394,6 +420,13 @@ const T = {
     g3t:'Press Enter and wait', g3d:'First run downloads the tool (~10 sec), then your browser opens automatically',
     g4t:'Click "Start Scan"', g4d:'Wait ~30 seconds — AI diagnoses and shows a repair plan',
     footer_note:'Unofficial tool, not affiliated with OpenClaw.',
+    guides_label:'Troubleshooting Guides',
+    guide1_title:'OpenClaw Not Working? Complete Guide',
+    guide1_desc:'Covers installation, gateway, config, network, model, and post-update issues',
+    guide2_title:'Fix: Gateway Not Starting',
+    guide2_desc:'Port conflicts, stale LaunchAgent, Node.js version, proxy variables',
+    guide3_title:'Fix: Config Errors',
+    guide3_desc:'Invalid JSON, wrong model IDs, expired API keys',
   }
 };
 
